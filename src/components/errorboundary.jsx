@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+
 class ErrorBoundary extends Component {
   state = {
     hasError: false,
@@ -6,9 +7,15 @@ class ErrorBoundary extends Component {
   };
 
   componentDidCatch = (error, info) => {
-    this.setState({ hasError: true, error: error });
+    this.setState({ hasError: true, errorMessage: error });
   };
   render() {
-    return <div>Something went wrong</div>;
+    if (this.state.hasError) {
+      return <div>{this.state.errorMessage}</div>;
+    } else {
+      return this.props.children;
+    }
   }
 }
+
+export default ErrorBoundary;
